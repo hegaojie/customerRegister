@@ -10,27 +10,20 @@ export class CustomerService implements ICustomerService {
         this.httpService = $http;
     }
 
-    public getCustomers(): Array<ICustomer> {
-        var res: Array<ICustomer> = [
-            { id: 1, name: "gaojie", address: "shanghai" },
-            { id: 2, name: "peijen", address: "zhejiang" },
-            { id: 3, name: "junhao", address: "zhoushan" }
-        ];
-        return res;
-        //todo: access api
+    public getCustomers(): angular.IPromise<angular.IHttpResponse<{}>> {
+        return this.httpService.get('http://127.0.0.1:9292/api/customers');
     }
     
     public deleteCustomer(customer: ICustomer) {
-        //todo: access api 
+        this.httpService.post('http://127.0.0.1:9292/api/delete', customer.Id);
     }
 
-    public getCustomerDetail(customerId: number): ICustomerDetail {
-        return {id: 9, name:"sample", address:"sample", comment:"sample"};
-        //todo: access api
+    public getCustomerDetail(customerId: number): angular.IPromise<angular.IHttpResponse<{}>> {
+        return this.httpService.get('http://127.0.0.1:9292/api/customer/'+customerId);
     }
 
-    public updateCustomerDetail(customer: ICustomerDetail) {
-        //todo: access api
+    public updateCustomerDetail(customer: ICustomerDetail): angular.IPromise<angular.IHttpResponse<{}>> {
+        return this.httpService.post('http://127.0.0.1:9292/api/update', customer);
     }
 }
 

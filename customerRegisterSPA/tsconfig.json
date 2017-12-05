@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
       "module": "CommonJS",
-      "target": "es5"
+      "target": "es5",
+      "sourceMap":true
     },
     "include": [
       "app/**/*.ts"

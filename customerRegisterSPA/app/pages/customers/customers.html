@@ -10,8 +10,8 @@
         </thead>
         <tbody>
             <tr ng-repeat="c in customersCtrl.customers">
-                <td>{{c.name}}</td>
-                <td>{{c.address}}</td>
+                <td>{{c.Name}}</td>
+                <td>{{c.Address}}</td>
                 <td>
                     <button type="button" class="btn btn-primary" ng-click="customersCtrl.edit(c)">Edit</button>
                     <button type="button" class="btn btn-danger" ng-click="customersCtrl.delete(c)">Delete</button>

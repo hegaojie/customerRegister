@@ -73,6 +73,7 @@ namespace CustomerRegister.Storage
         {
             var json = JsonConvert.SerializeObject(_cachedCustomers, Formatting.Indented);
             File.WriteAllText(_jsonFile, json);
+            _cacheInitialized = true;
         }
 
         private void InitializeCache()

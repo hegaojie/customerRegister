@@ -1,23 +1,23 @@
 ﻿/// <reference path="../../node_modules/@types/angular/index.d.ts"/>
 
 export interface ICustomerService {
-    getCustomers: () => Array<ICustomer>;
+    getCustomers(): angular.IPromise<angular.IHttpResponse<{}>>;
     deleteCustomer(customer: ICustomer);
-    getCustomerDetail(customerId: number): ICustomerDetail;
-    updateCustomerDetail(customer: ICustomerDetail);
+    getCustomerDetail(customerId: number): angular.IPromise<angular.IHttpResponse<{}>>;
+    updateCustomerDetail(customer: ICustomerDetail): angular.IPromise<angular.IHttpResponse<{}>>;
 }
 
 export interface ICustomer {
-    id: number;
-    name: string;
-    address: string;
+    Id: number;
+    Name: string;
+    Address: string;
 }
 
 export interface ICustomerDetail {
-    id: number;
-    name: string;
-    address: string;
-    comment: string;
+    Id: number;
+    Name: string;
+    Address: string;
+    Comment: string;
 }
 
 export interface IRouteParamsCustomer extends ng.route.IRouteParamsService {

@@ -28,9 +28,9 @@ namespace CustomerRegister.Controllers
 
         [Route("api/customer/{id}")]
         [HttpGet]
-        public CustomerDetail GetCustomerDetail(long customerId)
+        public CustomerDetail GetCustomerDetail(long id)
         {
-            return _storage.GetCustomerDetail(customerId);
+            return _storage.GetCustomerDetail(id);
         }
 
         [Route("api/delete")]
@@ -44,13 +44,16 @@ namespace CustomerRegister.Controllers
         [HttpPost]
         public void UpdateCustomer([FromBody] CustomerDetail customer)
         {
-            _storage.UpdateCustomer(customer);
+            if (customer.Id > 0)
+                _storage.UpdateCustomer(customer);
+            else
+                _storage.InsertCustomer(customer);
         }
 
         [Route("api/insert")]
         [HttpPost]
         public void InsertCustomer([FromBody] CustomerDetail customer)
-        {
+        {//todo: can be removed
             _storage.InsertCustomer(customer);
         }
     }

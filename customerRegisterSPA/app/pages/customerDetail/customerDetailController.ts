@@ -15,12 +15,15 @@ export class CustomerDetailController {
         this.locationService = $location;
 
         this.customerId = $routeParams.id;
-        this.customer = this.customerService.getCustomerDetail(this.customerId);
+        this.customerService.getCustomerDetail(this.customerId).then((response)=>{
+            this.customer = response.data as ICustomerDetail;
+        });
     }
 
     save(): void {
-        this.customerService.updateCustomerDetail(this.customer);
-        this.locationService.path('/home');
+        this.customerService.updateCustomerDetail(this.customer).then((response)=>{
+            this.locationService.path('/home');
+        });
     }
 
     cancel(): void {

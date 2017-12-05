@@ -6,15 +6,21 @@ import {ICustomerService, ICustomer} from '../../interfaces/interfaces';
 export class CustomersController {
     customerService: ICustomerService;
     locationService: ng.ILocationService;
+    rootScope: ng.IScope;
+    customers: ICustomer[];
 
-    customers: Array<ICustomer>;
-
-    static $inject = ["CustomerService", "$location"];
-    constructor(customerService: ICustomerService, $location: ng.ILocationService) {
+    static $inject = ["CustomerService", "$location", "$scope"];
+    constructor(customerService: ICustomerService, $location: ng.ILocationService, $scope: ng.IScope) {
         this.customerService = customerService;
         this.locationService = $location;
+        this.rootScope = $scope;
 
-        this.customers = this.customerService.getCustomers();
+        this.rootScope.$on('$viewContentLoaded', ()=>{
+            this.customerService.getCustomers().then((response)=>{
+                this.customers =[];
+                this.customers = response.data as ICustomer[];
+            });
+        });
     }
 
     private create(): void {
@@ -22,7 +28,7 @@ export class CustomersController {
     }
 
     private edit(customer: ICustomer): void {
-        this.locationService.path('/detail/'+customer.id);
+        this.locationService.path('/detail/'+customer.Id);
     }
 
     private delete(customer: ICustomer): void {
@@ -34,4 +40,4 @@ export class CustomersController {
     }
 }
 
-app.controller("CustomersController", CustomersController);
+app.controller("CustomersController", ["CustomerService", "$location", "$scope", CustomersController]);
